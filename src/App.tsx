@@ -75,7 +75,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-brand-navy/95 backdrop-blur-md py-4 border-b border-white/10 shadow-lg" : "bg-brand-navy/80 md:bg-transparent py-8"}`}>
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "bg-brand-navy border-b border-white/10 shadow-lg py-4" : "bg-brand-navy md:bg-transparent py-8"}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-brand-gold flex items-center justify-center rounded">
@@ -234,8 +234,8 @@ const CaseCard = ({ title, location, roi, bought, sold, image }: any) => (
       <img src={image} alt={title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" referrerPolicy="no-referrer" />
       <div className="absolute inset-0 bg-brand-navy/60 group-hover:bg-brand-navy/20 transition-colors" />
       <div className="absolute bottom-6 left-6 z-10">
-        <div className="text-[10px] uppercase font-bold tracking-widest text-brand-gold mb-1">{location}</div>
-        <h3 className="text-2xl font-serif text-white">{title}</h3>
+        <h3 className="text-2xl font-serif text-white mb-1">{title}</h3>
+        <div className="text-[10px] uppercase font-bold tracking-widest text-brand-gold">{location}</div>
       </div>
     </div>
     <div className="p-8">
@@ -316,36 +316,36 @@ const ResultsSection = () => {
           className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 overflow-x-auto snap-x snap-mandatory pb-8 md:pb-0 scrollbar-hide"
         >
         <CaseCard 
-          title="Casa Goiânia" 
+          title="Casa" 
           location="GOIÁS" 
           roi="84%" 
           bought="R$ 31.944" 
           sold="R$ 120.000" 
-          image="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800"
+          image="https://i.imgur.com/CZUrLeT.jpeg"
         />
         <CaseCard 
-          title="Apto Oceânico" 
+          title="Apto" 
           location="PARAÍBA" 
           roi="49%" 
-          bought="R$ 55.117" 
-          sold="R$ 148.000" 
-          image="https://images.unsplash.com/photo-1545324418-f1d3c5b53384?auto=format&fit=crop&q=80&w=800"
+          bought="R$ 55.117,68" 
+          sold="R$ 148.000,00" 
+          image="https://i.imgur.com/qpN4u6s.jpeg"
         />
         <CaseCard 
-          title="Residência MG" 
+          title="Casa" 
           location="MINAS GERAIS" 
           roi="29%" 
           bought="R$ 64.500" 
           sold="R$ 160.000" 
-          image="https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&q=80&w=800"
+          image="https://i.imgur.com/tElMEkY.jpeg"
         />
         <CaseCard 
-          title="Apto Executive" 
+          title="Casa" 
           location="PARAÍBA" 
           roi="40%" 
-          bought="R$ 59.516" 
-          sold="R$ 150.000" 
-          image="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&q=80&w=800"
+          bought="R$ 59.516,05" 
+          sold="R$ 150.000,00" 
+          image="https://i.imgur.com/Zy0y4Q3.jpeg"
         />
       </motion.div>
     </motion.div>
@@ -504,13 +504,23 @@ const OperationSection = () => {
                  className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 transition-transform duration-700" 
                />
                <div className="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-60" />
-               <div className="absolute bottom-0 left-0 p-10">
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-6xl font-serif text-brand-gold italic">30+</span>
-                    <span className="text-white text-[10px] uppercase font-bold tracking-widest">Ativos Diretos</span>
-                  </div>
-                  <p className="text-slate-300 text-xs font-light max-w-[200px]">Validado com capital próprio. Operamos onde dominamos.</p>
-               </div>
+                <div className="absolute bottom-0 left-0 p-10 w-full">
+                   <div className="flex items-baseline gap-3 mb-6">
+                     <span className="text-7xl font-serif text-brand-gold italic">100+</span>
+                     <span className="text-white text-[10px] uppercase font-bold tracking-widest">Arrematações</span>
+                   </div>
+                   <div className="bg-brand-gold/90 backdrop-blur-xl p-8 rounded-2xl border border-white/20 transform -translate-x-2 shadow-2xl relative overflow-hidden group/badge">
+                      <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/badge:rotate-12 transition-transform">
+                         <ShieldCheck className="w-16 h-16 text-brand-navy" />
+                      </div>
+                      <p className="text-brand-navy text-sm md:text-lg font-bold uppercase tracking-tight leading-tight mb-2">
+                        Validado com capital próprio.
+                      </p>
+                      <p className="text-brand-navy/70 text-xs md:text-sm font-medium uppercase tracking-widest">
+                        Operamos onde dominamos.
+                      </p>
+                   </div>
+                </div>
             </div>
 
             <div className="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm">
@@ -576,7 +586,7 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
       <motion.div 
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="relative w-full max-w-3xl max-h-[90vh] md:max-h-none overflow-y-auto bg-slate-900 border border-slate-700/50 rounded-3xl shadow-[0_0_80px_rgba(245,158,11,0.1)] p-6 md:p-14 mb-4 md:mb-10"
+        className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-slate-900 border border-slate-700/50 rounded-3xl shadow-[0_0_80px_rgba(245,158,11,0.1)] p-6 md:p-14 mb-4 md:mb-10"
       >
         <div className="absolute top-0 right-0 p-4 md:p-8">
            <button onClick={onClose} className="text-slate-500 hover:text-brand-gold transition-colors">
@@ -718,62 +728,59 @@ const JourneySection = () => (
                <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,var(--color-brand-gold),transparent)] mix-blend-overlay" />
             </div>
             
-            <div className="relative z-10 grid grid-cols-1 xl:grid-cols-2 gap-16 items-center">
-              <div className="space-y-12">
+            <div className="relative z-10 grid grid-cols-1 xl:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div className="space-y-8 lg:space-y-12">
                 <div className="inline-flex items-center gap-4 px-6 py-3 bg-brand-gold/10 border border-brand-gold/20 rounded-full">
                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shadow-[0_0_15px_#22c55e]" />
                    <span className="text-[11px] font-mono text-brand-gold tracking-[0.4em] font-bold uppercase">Deal Flow Exclusivo</span>
                 </div>
                 
-                <h3 className="text-5xl md:text-7xl font-serif text-white leading-[1] tracking-tight italic">
-                  Sua central de <br/> <span className="text-brand-gold serif-italic">oportunidades.</span>
+                <h3 className="text-4xl md:text-6xl lg:text-[5rem] font-serif text-white leading-[1.1] md:leading-[0.9] tracking-tighter italic">
+                  Sua central de <br className="hidden md:block" />
+                  <span className="text-brand-gold serif-italic font-light">oportunidades.</span>
                 </h3>
                 
-                <p className="text-slate-400 text-xl font-light leading-relaxed">
-                  Após o questionário, nosso time entrará em contato para sanar dúvidas e validar sua entrada no Grupo de Oportunidades via WhatsApp.
+                <p className="text-slate-400 text-lg md:text-xl font-light leading-relaxed">
+                  Não somos apenas consultores. Somos arrematadores. Após a aprovação do seu perfil, você entra no nosso canal de oportunidades reais.
                 </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {["Curadoria de Ativos", "Metodologia de Giro", "Simulador de ROI", "Comunidade de Membros"].map((tag, i) => (
-                    <div key={i} className="flex items-center gap-3 text-white text-[10px] md:text-[11px] font-bold uppercase tracking-widest bg-white/5 p-4 md:p-5 rounded-2xl border border-white/5 group hover:bg-brand-gold/10 transition-colors">
-                       <div className="w-2 h-2 bg-brand-gold rounded-full" />
-                       {tag}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="pt-6">
-                  <button 
-                    onClick={() => window.dispatchEvent(new CustomEvent('open-quiz'))}
-                    className="w-full md:w-auto px-12 py-7 bg-brand-gold text-brand-navy font-bold text-sm uppercase tracking-[0.2em] rounded-2xl hover:shadow-[0_0_60px_rgba(245,158,11,0.5)] transition-all flex items-center justify-center gap-5 group"
-                  >
-                    Quero ser um Membro RZ
-                    <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                  </button>
-                </div>
               </div>
 
-              <div className="hidden xl:block">
-                 <div className="relative bg-slate-900/70 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 shadow-2xl scale-110 translate-x-6">
-                    <div className="flex items-center gap-5 mb-10 border-b border-white/5 pb-8">
-                       <div className="w-14 h-14 bg-green-500/20 rounded-2xl flex items-center justify-center border border-green-500/20">
-                          <MessageCircle className="w-7 h-7 text-green-500" />
+              <div className="relative">
+                 <div className="relative bg-slate-900 border border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-5 md:p-10 shadow-[0_32px_64px_-15px_rgba(0,0,0,0.5)] xl:scale-110 xl:translate-x-6">
+                    <div className="flex items-center gap-3 md:gap-5 mb-8 md:mb-10 border-b border-white/5 pb-6 md:pb-8">
+                       <div className="relative shrink-0">
+                          <div className="w-12 h-12 md:w-14 md:h-14 bg-green-500/20 rounded-2xl flex items-center justify-center border border-green-500/30">
+                             <MessageCircle className="w-6 h-6 md:w-7 md:h-7 text-green-500" />
+                          </div>
+                          <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 border-[3px] border-slate-900 rounded-full" />
                        </div>
-                       <div>
-                          <div className="text-white text-sm font-bold uppercase tracking-widest leading-none mb-2">RZ | Deal Flow 💎</div>
-                          <div className="text-green-500 text-[10px] font-medium tracking-widest uppercase flex items-center gap-2">
-                             <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                             Grupo Ativo
+                        <div className="min-w-0 flex-grow">
+                          <div className="text-white text-base md:text-xl font-serif italic mb-1 flex items-center gap-2 overflow-hidden">
+                             <span className="truncate">Deal Flow</span>
+                             <span className="text-brand-gold not-italic font-mono font-bold text-[8px] md:text-[9px] bg-brand-gold/20 px-2 py-0.5 rounded border border-brand-gold/20 shrink-0">RZ</span>
+                             <span className="shrink-0">💎</span>
+                          </div>
+                          <div className="flex items-center gap-2 overflow-hidden">
+                             <div className="flex items-center gap-1.5 bg-green-500/10 px-1.5 py-0.5 rounded-full border border-green-500/20 shrink-0">
+                                <div className="w-1 h-1 bg-green-500 rounded-full animate-pulse" />
+                                <span className="text-green-500 text-[7px] md:text-[8px] font-bold tracking-[0.1em] uppercase">Online</span>
+                             </div>
+                             <div className="w-0.5 h-0.5 bg-white/20 rounded-full shrink-0" />
+                             <span className="text-slate-500 text-[7px] md:text-[8px] font-medium tracking-[0.1em] uppercase truncate">Private Group</span>
                           </div>
                        </div>
                     </div>
-                    <div className="space-y-5">
-                       <div className="bg-white/5 p-5 rounded-2xl rounded-tl-none max-w-[90%] border border-white/5">
-                          <p className="text-slate-300 text-sm italic leading-relaxed">Nova Oportunidade: Ativo com liquidez em 12 meses.</p>
+                    <div className="space-y-4">
+                       <div className="bg-white/5 p-4 md:p-5 rounded-2xl rounded-tl-none max-w-[90%] border border-white/5 shadow-inner">
+                          <p className="text-slate-300 text-[13px] md:text-sm italic leading-relaxed">Novo Ativo: Comercial SP com ROI projetado de 38%.</p>
                        </div>
-                       <div className="bg-brand-gold/10 p-5 rounded-2xl rounded-tl-none max-w-full border border-brand-gold/20">
-                          <p className="text-brand-gold text-sm font-bold font-mono tracking-tighter">ROI ESTIMADO: 38% — ANALISAR AGORA</p>
-                       </div>
+                       <button 
+                         onClick={() => window.dispatchEvent(new CustomEvent('open-quiz'))}
+                         className="w-full bg-brand-gold/10 p-5 rounded-2xl rounded-tl-none border border-brand-gold/30 flex items-center justify-between group/msg hover:bg-brand-gold transition-all duration-300"
+                       >
+                          <div className="text-brand-gold group-hover/msg:text-brand-navy text-xs font-bold font-mono tracking-[0.2em] uppercase transition-colors duration-300">COMPRAR COTA</div>
+                          <ArrowRight className="w-4 h-4 text-brand-gold group-hover/msg:text-brand-navy opacity-50 group-hover/msg:translate-x-1 transition-all duration-300" />
+                       </button>
                     </div>
                  </div>
               </div>
