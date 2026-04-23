@@ -586,7 +586,7 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
       <motion.div 
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-slate-900 border border-slate-700/50 rounded-3xl shadow-[0_0_80px_rgba(245,158,11,0.1)] p-6 md:p-14 mb-4 md:mb-10"
+        className="relative w-full max-w-3xl max-h-[85vh] md:max-h-none overflow-y-auto md:overflow-visible bg-slate-900 border border-slate-700/50 rounded-3xl shadow-[0_0_80px_rgba(245,158,11,0.1)] p-6 md:p-14"
       >
         <div className="absolute top-0 right-0 p-4 md:p-8">
            <button onClick={onClose} className="text-slate-500 hover:text-brand-gold transition-colors">
