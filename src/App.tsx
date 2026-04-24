@@ -610,7 +610,7 @@ const PartnersSection = () => (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="aspect-video lg:aspect-square bg-slate-200 rounded-[3rem] overflow-hidden shadow-2xl relative group"
+            className="aspect-[3/4] md:aspect-video lg:aspect-square bg-slate-200 rounded-[3rem] overflow-hidden shadow-2xl relative group"
           >
             <div className="absolute inset-0 bg-brand-navy/30 mix-blend-multiply z-10" />
             <img 
@@ -620,26 +620,26 @@ const PartnersSection = () => (
               referrerPolicy="no-referrer"
             />
             
-            {/* Repositioned Authority Badge with high contrast - moved lower */}
-            <div className="absolute bottom-40 right-8 z-20 hidden md:block text-right">
-              <div className="flex items-baseline gap-2 mb-2 justify-end drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
-                <span className="text-6xl font-serif text-brand-gold italic">100+</span>
-                <span className="text-white text-[9px] uppercase font-bold tracking-[0.2em] font-mono">Arrematações</span>
+            {/* Repositioned Authority Badge with high contrast - visible on mobile */}
+            <div className="absolute bottom-44 right-6 md:bottom-40 md:right-8 z-20 flex flex-col items-end text-right">
+              <div className="flex items-baseline gap-1 md:gap-2 mb-2 justify-end drop-shadow-[0_4px_10px_rgba(0,0,0,0.8)]">
+                <span className="text-4xl md:text-6xl font-serif text-brand-gold italic">100+</span>
+                <span className="text-white text-[7px] md:text-[9px] uppercase font-bold tracking-[0.2em] font-mono">Arrematações</span>
               </div>
               <motion.div 
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                className="bg-brand-navy/90 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-2xl"
+                className="bg-brand-navy/90 backdrop-blur-md p-4 md:p-6 rounded-2xl border border-white/10 shadow-2xl max-w-[200px] md:max-w-none"
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-2 md:gap-4">
                   <div className="shrink-0 text-brand-gold">
-                    <ShieldCheck className="w-8 h-8" />
+                    <ShieldCheck className="w-5 h-5 md:w-8 md:h-8" />
                   </div>
                   <div className="text-left">
-                    <p className="text-white text-base font-bold uppercase tracking-tight leading-tight mb-1">
+                    <p className="text-white text-xs md:text-base font-bold uppercase tracking-tight leading-tight mb-1">
                       Validado com <br/> capital próprio.
                     </p>
-                    <p className="text-brand-gold/60 text-[10px] font-medium uppercase tracking-widest">
+                    <p className="text-brand-gold/60 text-[8px] md:text-[10px] font-medium uppercase tracking-widest leading-tight">
                       Operamos onde dominamos.
                     </p>
                   </div>
@@ -647,13 +647,13 @@ const PartnersSection = () => (
               </motion.div>
             </div>
 
-            <div className="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-md p-8 rounded-2xl border border-white/50 z-20 shadow-xl group-hover:translate-y-[-5px] transition-transform">
-               <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold shadow-lg">
-                    <Handshake className="w-6 h-6" />
+            <div className="absolute bottom-6 left-6 right-6 md:bottom-10 md:left-10 md:right-10 bg-white/95 backdrop-blur-md p-5 md:p-8 rounded-2xl border border-white/50 z-20 shadow-xl group-hover:translate-y-[-5px] transition-transform">
+               <div className="flex items-center gap-3 md:gap-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold shadow-lg shrink-0">
+                    <Handshake className="w-5 h-5 md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <div className="text-brand-navy font-bold text-lg leading-tight italic font-serif">"Onde há complexidade, nós entregamos rentabilidade auditada."</div>
+                    <div className="text-brand-navy font-bold text-sm md:text-lg leading-tight italic font-serif">"Onde há complexidade, nós entregamos rentabilidade auditada."</div>
                   </div>
                </div>
             </div>
