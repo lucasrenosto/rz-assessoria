@@ -666,12 +666,33 @@ const PartnersSection = () => (
 
 const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Partial<LeadData>>({});
+  const [answers, setAnswers] = useState<Partial<LeadData & { email: string }>>({});
   const [showFinal, setShowFinal] = useState(false);
+  const [contactInfo, setContactInfo] = useState({ name: '', phone: '', email: '' });
+
+  // Type for dataLayer
+  const pushToDataLayer = (event: string, data: any) => {
+    if (typeof window !== 'undefined') {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({
+        event: event,
+        ...data
+      });
+    }
+  };
 
   const handleOption = (value: string) => {
-    const newAnswers = { ...answers, [steps[currentStep].id]: value };
+    const stepId = steps[currentStep].id;
+    const newAnswers = { ...answers, [stepId]: value };
     setAnswers(newAnswers);
+
+    // Push step answer to dataLayer
+    pushToDataLayer(`quiz_step_${stepId}`, {
+      step_index: currentStep,
+      question: steps[currentStep].question,
+      answer: value
+    });
+
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -679,16 +700,54 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     }
   };
 
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    // Basic Brazilian phone validation: (XX) XXXXX-XXXX or XXXX-XXXX
+    const digits = phone.replace(/\D/g, '');
+    return digits.length >= 10 && digits.length <= 11;
+  };
+
+  const isFormValid = 
+    contactInfo.name.trim().split(' ').length >= 2 && 
+    validateEmail(contactInfo.email) && 
+    validatePhone(contactInfo.phone);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const newContactInfo = { ...contactInfo, [name]: value };
+    setContactInfo(newContactInfo);
+
+    // Push info to dataLayer as user types (debounced or on blur would be better, but let's keep it simple or do it on final submit)
+    // Actually, usually we push on field completion or final submit to avoid noise.
+  };
+
   const handleFinish = (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const finalData = { ...answers, name: formData.get('name'), phone: formData.get('phone') } as LeadData;
+    const finalData = { ...answers, ...contactInfo } as LeadData & { email: string };
     
+    // Push final contact data to dataLayer
+    pushToDataLayer('form_submission_contact_info', {
+      user_name: contactInfo.name,
+      user_email: contactInfo.email,
+      user_phone: contactInfo.phone,
+      quiz_results: answers
+    });
+
+    // Push specific event for WhatsApp submission
+    pushToDataLayer('form_submission_whatsapp', {
+      submission_type: 'whatsapp_redirect',
+      ...finalData
+    });
+
     const message = `Olá! Completei meu Perfil de Investidor no site da RZ Assessoria.%0A%0A` +
       `*Objetivo:* ${finalData.goal}%0A` +
       `*Capital:* ${finalData.capital}%0A` +
       `*Experiência:* ${finalData.experience}%0A` +
       `*Investidor:* ${finalData.name}%0A` +
+      `*Email:* ${finalData.email}%0A` +
       `*Contato:* ${finalData.phone}`;
       
     window.open(`https://wa.me/5511985286428?text=${message}`, '_blank');
@@ -769,16 +828,44 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
             <h3 className="text-4xl md:text-6xl font-serif text-white text-center mb-6 italic leading-tight">Suas metas são realistas.</h3>
             <p className="text-slate-400 text-center mb-10 text-lg font-light max-w-md mx-auto">Para garantir a segurança, o próximo contato será realizado via canal exclusivo de WhatsApp.</p>
             
-            <form onSubmit={handleFinish} className="grid gap-8 max-w-lg mx-auto">
-              <div className="border-b border-slate-700 focus-within:border-brand-gold transition-colors pb-2">
-                <input required name="name" type="text" placeholder="NOME COMPLETO" className="w-full bg-transparent text-white focus:outline-none placeholder:text-slate-700 font-mono text-sm md:text-lg tracking-widest py-4 uppercase" />
+            <form onSubmit={handleFinish} className="grid gap-6 max-w-lg mx-auto">
+              <div className="border-b border-slate-700 focus-within:border-brand-gold transition-colors pb-1">
+                <input 
+                  required 
+                  name="name" 
+                  type="text" 
+                  placeholder="NOME COMPLETO" 
+                  value={contactInfo.name}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-white focus:outline-none placeholder:text-slate-700 font-mono text-sm md:text-lg tracking-widest py-3 uppercase" 
+                />
               </div>
-              <div className="border-b border-slate-700 focus-within:border-brand-gold transition-colors pb-2">
-                <input required name="phone" type="tel" placeholder="NÚMERO WHATSAPP" className="w-full bg-transparent text-white focus:outline-none placeholder:text-slate-700 font-mono text-sm md:text-lg tracking-widest py-4" />
+              <div className="border-b border-slate-700 focus-within:border-brand-gold transition-colors pb-1">
+                <input 
+                  required 
+                  name="email" 
+                  type="email" 
+                  placeholder="E-MAIL" 
+                  value={contactInfo.email}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-white focus:outline-none placeholder:text-slate-700 font-mono text-sm md:text-lg tracking-widest py-3 uppercase" 
+                />
+              </div>
+              <div className="border-b border-slate-700 focus-within:border-brand-gold transition-colors pb-1">
+                <input 
+                  required 
+                  name="phone" 
+                  type="tel" 
+                  placeholder="NÚMERO WHATSAPP" 
+                  value={contactInfo.phone}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-white focus:outline-none placeholder:text-slate-700 font-mono text-sm md:text-lg tracking-widest py-3" 
+                />
               </div>
               <button 
                 type="submit"
-                className="mt-8 py-6 amber-gradient text-brand-navy font-bold uppercase tracking-[0.2em] text-sm hover:shadow-[0_0_30px_rgba(245,158,11,0.2)] transition-all"
+                disabled={!isFormValid}
+                className={`mt-6 py-6 amber-gradient text-brand-navy font-bold uppercase tracking-[0.2em] text-sm transition-all ${!isFormValid ? 'opacity-50 cursor-not-allowed grayscale' : 'hover:shadow-[0_0_30px_rgba(245,158,11,0.2)]'}`}
               >
                 Solicitar Admissão no Grupo
               </button>
