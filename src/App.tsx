@@ -228,7 +228,7 @@ const Hero = () => (
   </section>
 );
 
-const CaseCard = ({ title, location, roi, bought, sold, image }: any) => (
+const CaseCard = ({ title, location, roi, bought, sold, image, liquidity }: any) => (
   <div className="min-w-[85vw] md:min-w-0 bg-brand-accent/30 rounded-2xl overflow-hidden border border-slate-700/50 hover:border-brand-gold/50 transition-all group snap-center">
     <div className="h-64 relative overflow-hidden">
       <img src={image} alt={title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" referrerPolicy="no-referrer" />
@@ -249,9 +249,13 @@ const CaseCard = ({ title, location, roi, bought, sold, image }: any) => (
           <span className="font-mono text-sm">{bought}</span>
         </div>
         <div>
-          <span className="text-[9px] uppercase font-bold text-slate-500 block mb-1">Resultado Final</span>
+          <span className="text-[9px] uppercase font-bold text-slate-500 block mb-1">Vendido por</span>
           <span className="font-mono text-sm text-slate-200">{sold}</span>
         </div>
+      </div>
+      <div className="mt-4 pt-4 border-t border-slate-700/30 flex justify-between items-center">
+        <span className="text-[9px] uppercase font-bold text-brand-gold/60 tracking-widest">Liquidez da Operação</span>
+        <span className="text-[10px] font-mono text-slate-400 uppercase">{liquidity}</span>
       </div>
     </div>
   </div>
@@ -322,6 +326,7 @@ const ResultsSection = () => {
           bought="R$ 31.944" 
           sold="R$ 120.000" 
           image="https://i.imgur.com/CZUrLeT.jpeg"
+          liquidity="menos de 9 meses"
         />
         <CaseCard 
           title="Apto" 
@@ -330,6 +335,7 @@ const ResultsSection = () => {
           bought="R$ 55.117,68" 
           sold="R$ 148.000,00" 
           image="https://i.imgur.com/qpN4u6s.jpeg"
+          liquidity="menos de 10 meses"
         />
         <CaseCard 
           title="Casa" 
@@ -338,6 +344,7 @@ const ResultsSection = () => {
           bought="R$ 64.500" 
           sold="R$ 160.000" 
           image="https://i.imgur.com/tElMEkY.jpeg"
+          liquidity="menos de 6 meses"
         />
         <CaseCard 
           title="Casa" 
@@ -346,6 +353,7 @@ const ResultsSection = () => {
           bought="R$ 59.516,05" 
           sold="R$ 150.000,00" 
           image="https://i.imgur.com/Zy0y4Q3.jpeg"
+          liquidity="menos de 9 meses"
         />
       </motion.div>
     </motion.div>
@@ -387,158 +395,274 @@ const OperationSection = () => {
     <section id="operaçao" className="py-24 bg-slate-100 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-          <div className="lg:col-span-7">
-            <motion.h2 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              className="text-brand-gold text-[10px] font-bold uppercase tracking-[0.4em] mb-4 font-mono"
-            >
-              Engrenagem de Gestão
-            </motion.h2>
-            <p className="text-4xl md:text-5xl font-serif text-brand-navy leading-tight mb-10">
-              Operação de <br/>
-              <span className="serif-italic text-brand-gold">Alta Performance.</span>
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-2 p-1 bg-slate-200/50 rounded-2xl md:rounded-xl w-full sm:w-fit mb-10">
-              {[
-                { id: 'method', label: 'Metodologia' },
-                { id: 'trust', label: 'Governança' },
-                { id: 'roles', label: 'Responsabilidades' }
-              ].map((tab) => (
-                <button 
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
-                  className={`px-6 py-3.5 sm:py-2.5 text-[10px] md:text-[9px] uppercase tracking-widest font-bold transition-all rounded-xl md:rounded-lg ${activeTab === tab.id ? 'bg-brand-navy text-white shadow-lg' : 'text-slate-500 hover:text-brand-navy'}`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+          <div className="lg:col-span-12">
+            <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-brand-gold text-[10px] font-bold uppercase tracking-[0.5em] mb-6 font-mono"
+          >
+            Metodologia & Governança
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-7xl font-serif text-brand-navy leading-tight italic mb-12"
+          >
+            Protocolo de <br/> <span className="text-brand-gold serif-italic">Excelência.</span>
+          </motion.h2>
 
-            <div className="min-h-[300px]">
-              <AnimatePresence mode="wait">
-                {activeTab === 'method' && (
-                  <motion.div 
-                    key="method"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
-                  >
-                    {methods.map((m, i) => (
-                      <div key={i} className={`p-8 bg-white rounded-3xl border border-slate-200 group hover:border-brand-gold/40 transition-all shadow-sm flex flex-col h-full ${i === 2 ? 'md:col-span-2' : ''}`}>
-                        <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-white transition-all">
-                          {m.icon}
-                        </div>
-                        <h4 className="font-serif font-bold text-xl text-brand-navy mb-3">{m.title}</h4>
-                        <p className="text-slate-500 text-sm leading-relaxed font-light flex-grow">{m.desc}</p>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              <div className="lg:col-span-8">
+                <div className="flex flex-col sm:flex-row gap-2 p-1 bg-slate-200/50 rounded-2xl md:rounded-xl w-full sm:w-fit mb-10">
+                  {[
+                    { id: 'method', label: 'Metodologia' },
+                    { id: 'trust', label: 'Governança' },
+                    { id: 'roles', label: 'Responsabilidades' }
+                  ].map((tab) => (
+                    <button 
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as any)}
+                      className={`px-6 py-3.5 sm:py-2.5 text-[10px] md:text-[9px] uppercase tracking-widest font-bold transition-all rounded-xl md:rounded-lg ${activeTab === tab.id ? 'bg-brand-navy text-white shadow-lg' : 'text-slate-500 hover:text-brand-navy'}`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
 
-                {activeTab === 'trust' && (
-                  <motion.div 
-                    key="trust"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="space-y-6"
-                  >
-                    <div className="p-6 md:p-8 bg-white rounded-3xl border border-slate-200 relative overflow-hidden group">
-                       <div className="absolute top-0 right-0 p-6 text-brand-gold/10 group-hover:text-brand-gold/20 transition-colors">
-                          <ShieldCheck className="w-16 h-16" />
-                       </div>
-                       <h4 className="text-xl font-serif text-brand-navy mb-6 italic">Pilar de Confiança Real</h4>
-                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 relative z-10">
-                          <div className="space-y-3">
-                             <p className="text-brand-gold text-[10px] font-bold uppercase tracking-widest mb-2 font-mono">Compliance & Governança</p>
-                             <p className="text-slate-400 text-sm leading-relaxed font-normal">Assinatura de contratos robustos para total segurança antes de qualquer transação financeira.</p>
-                          </div>
-                          <div className="space-y-3">
-                             <p className="text-brand-gold text-[10px] font-bold uppercase tracking-widest mb-2 font-mono">Transparência Auditada</p>
-                             <p className="text-slate-400 text-sm leading-relaxed font-normal">Fornecemos acesso integral a certidões, documentos jurídicos e comprovantes de cada operação.</p>
-                          </div>
-                       </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {activeTab === 'roles' && (
-                  <motion.div 
-                    key="roles"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
-                  >
-                    {tiers.map((t, i) => (
-                      <div key={i} className="bg-brand-navy p-8 rounded-[2.5rem] border border-white/10 shadow-xl">
-                        <h4 className="text-white text-[11px] font-bold uppercase tracking-[0.4em] font-mono mb-6 text-brand-gold">{t.name}</h4>
-                        <div className="space-y-4">
-                          {t.tasks.map((task, j) => (
-                            <div key={j} className="flex items-start gap-3 text-slate-300">
-                              <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
-                              <span className="text-xs md:text-sm font-light leading-relaxed">{task}</span>
+                <div className="min-h-[300px]">
+                  <AnimatePresence mode="wait">
+                    {activeTab === 'method' && (
+                      <motion.div 
+                        key="method"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
+                      >
+                        {methods.map((m, i) => (
+                          <div key={i} className={`p-8 bg-white rounded-3xl border border-slate-200 group hover:border-brand-gold/40 transition-all shadow-sm flex flex-col h-full ${i === 2 ? 'md:col-span-2' : ''}`}>
+                            <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-brand-gold mb-6 group-hover:bg-brand-gold group-hover:text-white transition-all">
+                              {m.icon}
                             </div>
-                          ))}
+                            <h4 className="font-serif font-bold text-xl text-brand-navy mb-3">{m.title}</h4>
+                            <p className="text-slate-500 text-sm leading-relaxed font-light flex-grow">{m.desc}</p>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+
+                    {activeTab === 'trust' && (
+                      <motion.div 
+                        key="trust"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="space-y-6"
+                      >
+                        <div className="p-6 md:p-8 bg-white rounded-3xl border border-slate-200 relative overflow-hidden group">
+                           <div className="absolute top-0 right-0 p-6 text-brand-gold/10 group-hover:text-brand-gold/20 transition-colors">
+                              <ShieldCheck className="w-16 h-16" />
+                           </div>
+                           <h4 className="text-xl font-serif text-brand-navy mb-6 italic">Pilar de Confiança Real</h4>
+                           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 relative z-10">
+                              <div className="space-y-3">
+                                 <p className="text-brand-gold text-[10px] font-bold uppercase tracking-widest mb-2 font-mono">Compliance & Governança</p>
+                                 <p className="text-slate-400 text-sm leading-relaxed font-normal">Assinatura de contratos robustos para total segurança antes de qualquer transação financeira.</p>
+                              </div>
+                              <div className="space-y-3">
+                                 <p className="text-brand-gold text-[10px] font-bold uppercase tracking-widest mb-2 font-mono">Transparência Auditada</p>
+                                 <p className="text-slate-400 text-sm leading-relaxed font-normal">Fornecemos acesso integral a certidões, documentos jurídicos e comprovantes de cada operação.</p>
+                              </div>
+                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                      </motion.div>
+                    )}
+
+                    {activeTab === 'roles' && (
+                      <motion.div 
+                        key="roles"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                      >
+                        {tiers.map((t, i) => (
+                          <div key={i} className="bg-brand-navy p-8 rounded-[2.5rem] border border-white/10 shadow-xl">
+                            <h4 className="text-white text-[11px] font-bold uppercase tracking-[0.4em] font-mono mb-6 text-brand-gold">{t.name}</h4>
+                            <div className="space-y-4">
+                              {t.tasks.map((task, j) => (
+                                <div key={j} className="flex items-start gap-3 text-slate-300">
+                                  <CheckCircle2 className="w-5 h-5 text-brand-gold shrink-0 mt-0.5" />
+                                  <span className="text-xs md:text-sm font-light leading-relaxed">{task}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              <div className="lg:col-span-4 space-y-6">
+                <div className="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex justify-between items-center mb-4">
+                      <span className="text-brand-navy font-bold text-xs uppercase tracking-widest">Remuneração</span>
+                      <div className="px-2 py-1 bg-brand-gold/10 rounded font-mono text-[9px] text-brand-gold font-bold">MODELO ALINHADO</div>
+                  </div>
+                  <p className="text-slate-600 text-sm leading-relaxed font-light">
+                    Operamos com dois modelos: <strong>taxa fixa na arrematação</strong> ou <strong>percentual de lucro</strong>. Em ambos os casos, nossa previsão entregue já considera todos os custos.
+                  </p>
+                </div>
+
+                <div className="p-8 bg-brand-navy rounded-3xl border border-white/10 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+                    <CheckCircle2 className="w-12 h-12 text-white" />
+                  </div>
+                  <h4 className="text-brand-gold text-[10px] font-bold uppercase tracking-widest mb-4 font-mono">Performance</h4>
+                  <p className="text-white text-sm font-serif italic italic leading-relaxed">
+                    Nossa curadoria foca em ativos com potencial de retorno real acima da média do mercado imobiliário tradicional.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="lg:col-span-5 space-y-6"
-          >
-            <div className="aspect-[4/5] bg-slate-200 rounded-[2.5rem] overflow-hidden relative group">
-               <img 
-                 src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&q=80" 
-                 alt="Gestão Profissional" 
-                 className="w-full h-full object-cover grayscale brightness-50 group-hover:scale-105 transition-transform duration-700" 
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-brand-navy to-transparent opacity-60" />
-                <div className="absolute bottom-0 left-0 p-10 w-full">
-                   <div className="flex items-baseline gap-3 mb-6">
-                     <span className="text-7xl font-serif text-brand-gold italic">100+</span>
-                     <span className="text-white text-[10px] uppercase font-bold tracking-widest">Arrematações</span>
-                   </div>
-                   <div className="bg-brand-gold/90 backdrop-blur-xl p-8 rounded-2xl border border-white/20 transform -translate-x-2 shadow-2xl relative overflow-hidden group/badge">
-                      <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/badge:rotate-12 transition-transform">
-                         <ShieldCheck className="w-16 h-16 text-brand-navy" />
-                      </div>
-                      <p className="text-brand-navy text-sm md:text-lg font-bold uppercase tracking-tight leading-tight mb-2">
-                        Validado com capital próprio.
-                      </p>
-                      <p className="text-brand-navy/70 text-xs md:text-sm font-medium uppercase tracking-widest">
-                        Operamos onde dominamos.
-                      </p>
-                   </div>
-                </div>
-            </div>
-
-            <div className="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm">
-               <div className="flex justify-between items-center mb-4">
-                  <span className="text-brand-navy font-bold text-xs uppercase tracking-widest">Remuneração</span>
-                  <div className="px-2 py-1 bg-brand-gold/10 rounded font-mono text-[9px] text-brand-gold font-bold">FEES ALINHADOS</div>
-               </div>
-               <p className="text-slate-600 text-sm leading-relaxed">
-                 Nossa estrutura é integralmente descontada dos cálculos de rentabilidade apresentados. Transparência absoluta sobre o lucro líquido.
-               </p>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
+
+const PartnersSection = () => (
+  <section className="py-32 bg-slate-50 border-y border-slate-200 overflow-hidden">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <div className="lg:col-span-12 mb-12">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-serif text-brand-navy leading-tight italic mb-4"
+          >
+            Mestres por trás da <span className="text-brand-gold">Seleção de Ativos.</span>
+          </motion.h2>
+          <p className="text-slate-500 font-light text-xl max-w-2xl leading-relaxed">
+            Mais do que assessores, somos investidores que dominam a técnica e a execução no campo de batalha dos leilões.
+          </p>
+        </div>
+
+        <div className="lg:col-span-5 space-y-12">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            className="group"
+          >
+            <div className="flex items-center gap-4 mb-6">
+               <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-brand-gold/30 shadow-lg shrink-0">
+                  <img src="https://i.imgur.com/rVzxwj2.png" alt="Antônio Zambianco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+               </div>
+               <div>
+                  <div className="flex items-center gap-2 text-[9px] font-bold text-brand-gold uppercase tracking-[0.3em] font-mono mb-1">
+                    Fundador & Estrategista
+                  </div>
+                  <h3 className="text-2xl font-serif text-brand-navy">Antônio Zambianco</h3>
+               </div>
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed mb-6 font-light">
+              Especialista em Estratégia de Dados e Modelagem Financeira. Com passagens pela Bain & Company e liderança em Data & AI no iFood, Antônio utiliza análise preditiva de alta complexidade para identificar as melhores oportunidades de leilão, garantindo máxima rentabilidade e decisões baseadas em dados para os investidores.
+            </p>
+            <div className="flex gap-4">
+               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Data Intelligence</div>
+               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Strategic Analytics</div>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2 }}
+            className="group"
+          >
+            <div className="flex items-center gap-4 mb-6">
+               <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-brand-gold/30 shadow-lg shrink-0">
+                  <img src="https://i.imgur.com/iADBxuC.jpeg" alt="Lucas Renosto" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+               </div>
+               <div>
+                  <div className="flex items-center gap-2 text-[9px] font-bold text-brand-gold uppercase tracking-[0.3em] font-mono mb-1">
+                    Fundador & Operações
+                  </div>
+                  <h3 className="text-2xl font-serif text-brand-navy">Lucas Renosto</h3>
+               </div>
+            </div>
+            <p className="text-slate-600 text-sm leading-relaxed mb-6 font-light">
+              Engenheiro Civil pela USP e fundador da BYB, agência de performance com 8 anos de mercado. Com vasta experiência em estratégias de aquisição para o setor imobiliário e financeiro, Lucas utiliza o rigor analítico e a inteligência de dados para acelerar a liquidez dos ativos e garantir o máximo retorno sobre o capital investido.
+            </p>
+            <div className="flex gap-4">
+               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Marketing de Performance</div>
+               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Growth Strategy</div>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="lg:col-span-7 relative">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="aspect-video lg:aspect-square bg-slate-200 rounded-[3rem] overflow-hidden shadow-2xl relative group"
+          >
+            <div className="absolute inset-0 bg-brand-navy/30 mix-blend-multiply z-10" />
+            <img 
+              src="https://i.imgur.com/CB1VP0J.png" 
+              alt="Sócios RZ Assessoria em campo" 
+              className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-1000"
+              referrerPolicy="no-referrer"
+            />
+            
+            {/* Repositioned Authority Badge with high contrast - moved lower */}
+            <div className="absolute bottom-40 right-8 z-20 hidden md:block text-right">
+              <div className="flex items-baseline gap-2 mb-2 justify-end drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+                <span className="text-6xl font-serif text-brand-gold italic">100+</span>
+                <span className="text-white text-[9px] uppercase font-bold tracking-[0.2em] font-mono">Arrematações</span>
+              </div>
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                className="bg-brand-navy/90 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-2xl"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="shrink-0 text-brand-gold">
+                    <ShieldCheck className="w-8 h-8" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-white text-base font-bold uppercase tracking-tight leading-tight mb-1">
+                      Validado com <br/> capital próprio.
+                    </p>
+                    <p className="text-brand-gold/60 text-[10px] font-medium uppercase tracking-widest">
+                      Operamos onde dominamos.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="absolute bottom-10 left-10 right-10 bg-white/95 backdrop-blur-md p-8 rounded-2xl border border-white/50 z-20 shadow-xl group-hover:translate-y-[-5px] transition-transform">
+               <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center text-brand-gold shadow-lg">
+                    <Handshake className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <div className="text-brand-navy font-bold text-lg leading-tight italic font-serif">"Onde há complexidade, nós entregamos rentabilidade auditada."</div>
+                  </div>
+               </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -567,7 +691,7 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
       `*Investidor:* ${finalData.name}%0A` +
       `*Contato:* ${finalData.phone}`;
       
-    window.open(`https://wa.me/15996039421?text=${message}`, '_blank');
+    window.open(`https://wa.me/5511985286428?text=${message}`, '_blank');
     onClose();
   };
 
@@ -824,8 +948,8 @@ const Footer = () => (
       <div className="md:col-span-3">
         <h4 className="font-bold mb-10 text-brand-gold uppercase text-[10px] tracking-[0.4em] font-mono">Atendimento</h4>
         <ul className="space-y-6 text-slate-500 text-xs font-bold uppercase tracking-widest">
-          <li className="text-white font-mono">15 99603-9421</li>
-          <li className="lowercase">contato@rzassessoria.com.br</li>
+          <li className="text-white font-mono">(11) 98528-6428</li>
+          <li className="lowercase">antonio.zambianco@gmail.com</li>
           <li className="pt-4 italic font-serif text-[10px] tracking-normal capitalize">São Paulo — Avenue, BR</li>
         </ul>
       </div>
@@ -853,6 +977,7 @@ export default function App() {
       <Hero />
       <ResultsSection />
       <OperationSection />
+      <PartnersSection />
       <JourneySection />
       
       {/* Dynamic CTA Section */}
