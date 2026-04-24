@@ -210,7 +210,7 @@ const Hero = () => (
             {[
               { label: "Rentabilidade", val: "40% a.a. (ROI Base)" },
               { label: "Track Record", val: "+100 Arrematações" },
-              { label: "Liquidez Média", val: "< 9 meses" },
+              { label: "Liquidez Média", val: "9 a 12 meses" },
               { label: "Segurança", val: "Margem Conservadora" }
             ].map((stat, i) => (
               <div key={i} className="flex justify-between items-end border-b border-white/5 pb-2">
@@ -245,7 +245,7 @@ const CaseCard = ({ title, location, roi, bought, sold, image, liquidity }: any)
       </div>
       <div className="grid grid-cols-2 gap-6 border-t border-slate-700 pt-6">
         <div>
-          <span className="text-[9px] uppercase font-bold text-slate-500 block mb-1">Arrematação</span>
+          <span className="text-[9px] uppercase font-bold text-slate-500 block mb-1">Arrematado por:</span>
           <span className="font-mono text-sm">{bought}</span>
         </div>
         <div>
@@ -332,15 +332,15 @@ const ResultsSection = () => {
           title="Apto" 
           location="PARAÍBA" 
           roi="49%" 
-          bought="R$ 55.117,68" 
-          sold="R$ 148.000,00" 
+          bought="R$ 55.117" 
+          sold="R$ 148.000" 
           image="https://i.imgur.com/qpN4u6s.jpeg"
           liquidity="menos de 10 meses"
         />
         <CaseCard 
           title="Casa" 
           location="MINAS GERAIS" 
-          roi="29%" 
+          roi="30%" 
           bought="R$ 64.500" 
           sold="R$ 160.000" 
           image="https://i.imgur.com/tElMEkY.jpeg"
@@ -350,8 +350,8 @@ const ResultsSection = () => {
           title="Casa" 
           location="PARAÍBA" 
           roi="40%" 
-          bought="R$ 59.516,05" 
-          sold="R$ 150.000,00" 
+          bought="R$ 59.516" 
+          sold="R$ 150.000" 
           image="https://i.imgur.com/Zy0y4Q3.jpeg"
           liquidity="menos de 9 meses"
         />
@@ -561,21 +561,21 @@ const PartnersSection = () => (
           >
             <div className="flex items-center gap-4 mb-6">
                <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-brand-gold/30 shadow-lg shrink-0">
-                  <img src="https://i.imgur.com/rVzxwj2.png" alt="Antônio Zambianco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                  <img src="https://i.imgur.com/rVzxwj2.png" alt="Antonio Zambianco" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                </div>
                <div>
                   <div className="flex items-center gap-2 text-[9px] font-bold text-brand-gold uppercase tracking-[0.3em] font-mono mb-1">
                     Fundador & Estrategista
                   </div>
-                  <h3 className="text-2xl font-serif text-brand-navy">Antônio Zambianco</h3>
+                  <h3 className="text-2xl font-serif text-brand-navy">Antonio Zambianco</h3>
                </div>
             </div>
             <p className="text-slate-600 text-sm leading-relaxed mb-6 font-light">
-              Especialista em Estratégia de Dados e Modelagem Financeira. Com passagens pela Bain & Company e liderança em Data & AI no iFood, Antônio utiliza análise preditiva de alta complexidade para identificar as melhores oportunidades de leilão, garantindo máxima rentabilidade e decisões baseadas em dados para os investidores.
+              Engenheiro Civil pela USP e especialista em Estratégia de Dados e Business Strategy. Com experiência na Bain & Company e liderança em Data & AI no iFood, Antonio utiliza modelagem preditiva avançada para selecionar oportunidades de leilão com alta performance, garantindo segurança técnica e rentabilidade superior para o portfólio.
             </p>
             <div className="flex gap-4">
                <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Data Intelligence</div>
-               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Strategic Analytics</div>
+               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Business Strategy</div>
             </div>
           </motion.div>
 
@@ -597,10 +597,10 @@ const PartnersSection = () => (
                </div>
             </div>
             <p className="text-slate-600 text-sm leading-relaxed mb-6 font-light">
-              Engenheiro Civil pela USP e fundador da BYB, agência de performance com 8 anos de mercado. Com vasta experiência em estratégias de aquisição para o setor imobiliário e financeiro, Lucas utiliza o rigor analítico e a inteligência de dados para acelerar a liquidez dos ativos e garantir o máximo retorno sobre o capital investido.
+              Engenheiro Civil pela USP e especialista em Performance e Growth Marketing. Fundador da BYB e com vivência prática na construção civil, Lucas utiliza a inteligência de mercado e estratégias de aquisição acelerada para potencializar a liquidez dos ativos, garantindo que as oportunidades arrematadas sejam convertidas em lucro com máxima agilidade.
             </p>
             <div className="flex gap-4">
-               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Marketing de Performance</div>
+               <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Performance Marketing</div>
                <div className="px-4 py-2 bg-brand-navy/5 rounded-lg border border-slate-200 text-[9px] font-bold uppercase tracking-widest text-slate-500">Growth Strategy</div>
             </div>
           </motion.div>
@@ -653,7 +653,7 @@ const PartnersSection = () => (
                     <Handshake className="w-5 h-5 md:w-6 md:h-6" />
                   </div>
                   <div>
-                    <div className="text-brand-navy font-bold text-sm md:text-lg leading-tight italic font-serif">"Onde há complexidade, nós entregamos rentabilidade auditada."</div>
+                    <div className="text-brand-navy font-bold text-sm md:text-lg leading-tight italic font-serif">"A estratégia das grandes consultorias aplicada ao seu investimento imobiliário."</div>
                   </div>
                </div>
             </div>
