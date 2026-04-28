@@ -52,7 +52,6 @@ export default async function handler(req, res) {
         }
       }
     ],
-    test_event_code: "TEST58449"
   };
 
   try {
