@@ -730,7 +730,7 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
       quiz_data: {
         pergunta_1: answers.goal,
         pergunta_2: answers.capital,
-        pergunta_3: answers.timing,
+        pergunta_3: answers.experience,
         user_name: contactInfo.name,
         user_email: contactInfo.email,
         user_phone: contactInfo.phone
@@ -752,7 +752,7 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
             quiz_data: {
               pergunta_1: answers.goal,
               pergunta_2: answers.capital,
-              pergunta_3: answers.timing
+              pergunta_3: answers.experience
             }
           }),
         });
