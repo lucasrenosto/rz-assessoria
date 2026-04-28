@@ -686,11 +686,11 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     const newAnswers = { ...answers, [stepId]: value };
     setAnswers(newAnswers);
 
-    // Push step answer to dataLayer
+    // Push step answer to dataLayer using the requested structured format
     pushToDataLayer(`quiz_step_${stepId}`, {
-      step_index: currentStep,
-      question: steps[currentStep].question,
-      answer: value
+      quiz_data: {
+        [`pergunta_${currentStep + 1}`]: value
+      }
     });
 
     if (currentStep < steps.length - 1) {
@@ -719,28 +719,49 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     const { name, value } = e.target;
     const newContactInfo = { ...contactInfo, [name]: value };
     setContactInfo(newContactInfo);
-
-    // Push info to dataLayer as user types (debounced or on blur would be better, but let's keep it simple or do it on final submit)
-    // Actually, usually we push on field completion or final submit to avoid noise.
   };
 
   const handleFinish = (e: FormEvent) => {
     e.preventDefault();
     const finalData = { ...answers, ...contactInfo } as LeadData & { email: string };
     
-    // Push final contact data to dataLayer
-    pushToDataLayer('form_submission_contact_info', {
-      user_name: contactInfo.name,
-      user_email: contactInfo.email,
-      user_phone: contactInfo.phone,
-      quiz_results: answers
+    // Push final data to Data Layer for total capture
+    pushToDataLayer('form_submission_whatsapp', {
+      quiz_data: {
+        pergunta_1: answers.goal,
+        pergunta_2: answers.capital,
+        pergunta_3: answers.timing,
+        user_name: contactInfo.name,
+        user_email: contactInfo.email,
+        user_phone: contactInfo.phone
+      }
     });
 
-    // Push specific event for WhatsApp submission
-    pushToDataLayer('form_submission_whatsapp', {
-      submission_type: 'whatsapp_redirect',
-      ...finalData
-    });
+    // Meta Conversion API Integration
+    const sendToMetaCAPI = async () => {
+      try {
+        await fetch('/api/fb-conversion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            eventName: 'Lead',
+            user_email: contactInfo.email,
+            user_phone: contactInfo.phone,
+            user_name: contactInfo.name,
+            event_id: `lead_${Date.now()}`,
+            quiz_data: {
+              pergunta_1: answers.goal,
+              pergunta_2: answers.capital,
+              pergunta_3: answers.timing
+            }
+          }),
+        });
+      } catch (err) {
+        console.error('Meta CAPI Error:', err);
+      }
+    };
+    
+    sendToMetaCAPI();
 
     const message = `Olá! Completei meu Perfil de Investidor no site da RZ Assessoria.%0A%0A` +
       `*Objetivo:* ${finalData.goal}%0A` +
