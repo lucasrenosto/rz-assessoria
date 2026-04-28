@@ -728,12 +728,12 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
     // Push final data to Data Layer for total capture
     pushToDataLayer('form_submission_whatsapp', {
       quiz_data: {
-        pergunta_1: answers.goal,
-        pergunta_2: answers.capital,
-        pergunta_3: answers.experience,
-        user_name: contactInfo.name,
-        user_email: contactInfo.email,
-        user_phone: contactInfo.phone
+        pergunta_1: finalData.goal,
+        pergunta_2: finalData.capital,
+        pergunta_3: finalData.experience,
+        user_name: finalData.name,
+        user_email: finalData.email,
+        user_phone: finalData.phone
       }
     });
 
@@ -745,14 +745,14 @@ const QuizModal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             eventName: 'Lead',
-            user_email: contactInfo.email,
-            user_phone: contactInfo.phone,
-            user_name: contactInfo.name,
+            user_email: finalData.email,
+            user_phone: finalData.phone,
+            user_name: finalData.name,
             event_id: `lead_${Date.now()}`,
             quiz_data: {
-              pergunta_1: answers.goal,
-              pergunta_2: answers.capital,
-              pergunta_3: answers.experience
+              pergunta_1: finalData.goal,
+              pergunta_2: finalData.capital,
+              pergunta_3: finalData.experience
             }
           }),
         });
