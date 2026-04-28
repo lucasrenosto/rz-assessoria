@@ -40,7 +40,6 @@ export default async function handler(req, res) {
         event_time: Math.floor(Date.now() / 1000),
         event_id: event_id || `lead_${Date.now()}`,
         action_source: 'website',
-        test_event_code: "TEST58449",
         user_data: {
           em: [hashedEmail],
           ph: [hashedPhone],
@@ -52,7 +51,8 @@ export default async function handler(req, res) {
           ...quiz_data
         }
       }
-    ]
+    ],
+    test_event_code: "TEST58449"
   };
 
   try {
