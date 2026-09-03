@@ -322,29 +322,29 @@ const ResultsSection = () => {
         <CaseCard 
           title="Casa" 
           location="GOIÁS" 
-          roi="84%" 
-          bought="R$ 31.944" 
-          sold="R$ 120.000" 
+          roi="51%" 
+          bought="R$ 36.000" 
+          sold="R$ 113.000" 
           image="https://i.imgur.com/CZUrLeT.jpeg"
           liquidity="menos de 9 meses"
         />
         <CaseCard 
           title="Apto" 
           location="PARAÍBA" 
-          roi="49%" 
+          roi="41%" 
           bought="R$ 55.117" 
           sold="R$ 148.000" 
           image="https://i.imgur.com/qpN4u6s.jpeg"
-          liquidity="menos de 10 meses"
+          liquidity="menos de 12 meses"
         />
         <CaseCard 
           title="Casa" 
           location="MINAS GERAIS" 
-          roi="30%" 
-          bought="R$ 64.500" 
-          sold="R$ 160.000" 
+          roi="26%" 
+          bought="R$ 67.700" 
+          sold="R$ 152.000" 
           image="https://i.imgur.com/tElMEkY.jpeg"
-          liquidity="menos de 6 meses"
+          liquidity="cerca de 5 meses"
         />
         <CaseCard 
           title="Casa" 
