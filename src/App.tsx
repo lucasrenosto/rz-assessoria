@@ -349,9 +349,9 @@ const ResultsSection = () => {
         <CaseCard 
           title="Casa" 
           location="PARAÍBA" 
-          roi="40%" 
+          roi="58%" 
           bought="R$ 59.516" 
-          sold="R$ 150.000" 
+          sold="R$ 156.000" 
           image="https://i.imgur.com/Zy0y4Q3.jpeg"
           liquidity="menos de 9 meses"
         />
